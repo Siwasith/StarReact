@@ -3,7 +3,7 @@ import CoffeeMachine from "../../img/coffee.jpg";
 
 const HeroSection: React.FC = () => {
   return (
-    <div className="relative h-[40rem] overflow-hidden">
+    <div className="relative h-[40rem] overflow-hidden sm:h-[20rem]">
       <img
         className="absolute top-0 left-0 w-full h-auto -mt-48 brightness-50 sm:top-[250px]"
         src={CoffeeMachine}
