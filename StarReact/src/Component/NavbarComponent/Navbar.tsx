@@ -3,8 +3,8 @@ import React from "react";
 const Navbar: React.FC = () => {
   return (
     <nav className="bg-[#303030] fixed top-0 left-0 w-full z-10">
-      <div className="mx-44	flex justify-between items-center m-3">
-        <a href="#" className="flex items-center">
+      <div className="mx-44 flex justify-between m-3 sm:mx-5">
+        <a href="#" className="flex">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
@@ -23,9 +23,12 @@ const Navbar: React.FC = () => {
             ></path>
           </svg>
         </a>
-        
+
         <div className="flex">
-          <h5 className="text-xl my-2 mx-4 text-white font-light">Sivasit Singkaew</h5>
+          <h5 className="text-base my-3 mx-4 text-white font-light sm:hidden">
+            Sivasit Singkaew
+          </h5>
+
           <svg
             className="w-12 h-12 text-gray-800 dark:text-white"
             aria-hidden="true"
@@ -41,7 +44,6 @@ const Navbar: React.FC = () => {
               clipRule="evenodd"
             />
           </svg>
-          
         </div>
       </div>
     </nav>
