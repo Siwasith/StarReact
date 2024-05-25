@@ -11,7 +11,7 @@ const HeroSection: React.FC = () => {
       />
       <div className="absolute inset-0 flex flex-col text-white text-left font-mulish left-0">
         <div className="ml-56 my-60 sm:ml-10 sm:mt-36">
-          <h1 className="text-6xl mb-4 font-light tracking-wide sm:text-xl sm:font-bold">
+          <h1 className="text-6xl mb-4 font-base tracking-wide sm:text-xl sm:font-bold">
             STARBUCKS RESERVE
           </h1>
           <p className="max-w-2xl text-xl font-light tracking-wider sm:text-sm sm:tracking-tighter ">
@@ -24,6 +24,7 @@ const HeroSection: React.FC = () => {
         </div>
       </div>
     </div>
+    
   );
 };
 

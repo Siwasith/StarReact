@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import FiltersBarComponent from "../FiltersBarComponent/FiltersBarComponent";
 
 // Define the type for a product
 interface Product {
@@ -20,6 +21,7 @@ const ProductList: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchQuery, setSearchQuery] = useState("");
   const itemsPerPage = 12; // Set the number of items per page
 
   useEffect(() => {
@@ -42,23 +44,43 @@ const ProductList: React.FC = () => {
     setCurrentPage(page);
   };
 
+  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(event.target.value);
+    setCurrentPage(1); // Reset to the first page whenever the search query changes
+  };
+
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = Math.min(startIndex + itemsPerPage, products.length);
-  const displayedProducts = products.slice(startIndex, endIndex);
+  const endIndex = Math.min(startIndex + itemsPerPage, filteredProducts.length);
+  const displayedProducts = filteredProducts.slice(startIndex, endIndex);
 
   if (loading) {
     return <div className="text-white">Loading...</div>;
   }
 
   return (
-    <div className="absolute w-[900px] h-auto ml-[550px] -mt-[400px] p-4">
-      <div className="grid grid-cols-3 gap-6">
+    <>
+    <FiltersBarComponent />
+    <div className="absolute w-[900px] h-auto ml-[550px] -mt-[500px] p-4 mb-4">
+      <div className="mb-4">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          placeholder="Search product name..."
+          className="border border-gray-300 text-gray-900 text-sm rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        />
+      </div>
+      <div className="grid grid-cols-3 gap-6 mt-12">
         {displayedProducts.map((product) => (
           <Link to={`/${product.id}`} key={product.id} className="block">
             <div className="bg-white shadow-md flex flex-col h-[500px]">
-            <p className="absolute text-gray-800 font-bold ml-4 mt-[465px] font-light">
-                  Price : ${product.price}
-                </p>
+              <p className="absolute text-gray-800 font-bold ml-4 mt-[465px] font-light">
+                Price : ${product.price}
+              </p>
               <img
                 src={product.image_url}
                 alt={product.name}
@@ -81,15 +103,13 @@ const ProductList: React.FC = () => {
                     ))}
                   </div>
                 </div>
-
-                
               </div>
             </div>
           </Link>
         ))}
       </div>
       <div className="flex justify-center mt-4">
-        {[...Array(Math.ceil(products.length / itemsPerPage)).keys()].map((page) => (
+        {[...Array(Math.ceil(filteredProducts.length / itemsPerPage)).keys()].map((page) => (
           <button
             key={page}
             onClick={() => handlePageChange(page + 1)}
@@ -101,7 +121,9 @@ const ProductList: React.FC = () => {
           </button>
         ))}
       </div>
+
     </div>
+    </>
   );
 };
 

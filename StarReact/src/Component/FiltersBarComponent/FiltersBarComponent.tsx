@@ -33,7 +33,7 @@ const ArrowIcon = ({ isOpen }) => (
   </svg>
 );
 
-const FiltersSection = ({ 
+const FiltersSection = ({
   title,
   filters,
   isVisible,
@@ -68,16 +68,43 @@ const FiltersSection = ({
 const FiltersBarComponent = () => {
   const initialCategoriesState = {
     wholeBean: false,
-    reserve: false,
-    via: false,
-    origami: false,
-    teavana: false,
-    syrup: false,
-    blonde: false,
-    medium: false,
-    dark: false,
-    decaf: false,
-    regular: false,
+    Cafetiere: false,
+    Filter: false,
+    Espresso: false,
+    FrenchPress: false,
+    PourOver: false,
+    darkChocolate: false,
+    blackCherry: false,
+    citrus: false,
+    toastedNuts: false,
+    caramel: false,
+    cocoa: false,
+    hazelnut: false,
+    molasses: false,
+    nutty: false,
+    smooth: false,
+    spicy: false,
+    earthy: false,
+    cinnamon: false,
+    clove: false,
+    blueberry: false,
+    blackcurrant: false,
+    vanilla: false,
+    floral: false,
+    honey: false,
+    smoke: false,
+    milkChocolate: false,
+    tropicalFruit: false,
+    cardamom: false,
+    fruit: false,
+    toffee: false,
+    coconut: false,
+    espresso: false,
+    centralAmerica: false,
+    africa: false,
+    southAmerica: false,
+    asiaPacific: false,
+    middleEast: false,
   };
 
   const [categories, setCategories] = useState(initialCategoriesState);
@@ -113,24 +140,51 @@ const FiltersBarComponent = () => {
     setCategories(initialCategoriesState);
   };
 
-  const categoryFilters = [
+  const GrindOption = [
     { label: "Whole Bean", key: "wholeBean" },
-    { label: "Starbucks Reserve", key: "reserve" },
-    { label: "Starbucks VIA", key: "via" },
-    { label: "Starbucks Origami", key: "origami" },
-    { label: "Teavana", key: "teavana" },
-    { label: "Syrup", key: "syrup" },
+    { label: "Cafetiere", key: "reserve" },
+    { label: "Filter", key: "via" },
+    { label: "Espresso", key: "origami" },
+    { label: "French Press", key: "teavana" },
+    { label: "Pour Over", key: "syrup" },
   ];
 
-  const roastFilters = [
-    { label: "Blonde", key: "blonde" },
-    { label: "Medium", key: "medium" },
-    { label: "Dark", key: "dark" },
+  const FlavorProfile = [
+    { label: "Dark Chocolate", key: "dark_chocolate" },
+    { label: "Black Cherry", key: "black_cherry" },
+    { label: "Citrus", key: "citrus" },
+    { label: "Toasted Nuts", key: "toasted_nuts" },
+    { label: "Caramel", key: "caramel" },
+    { label: "Cocoa", key: "cocoa" },
+    { label: "Hazelnut", key: "hazelnut" },
+    { label: "Molasses", key: "molasses" },
+    { label: "Nutty", key: "nutty" },
+    { label: "Smooth", key: "smooth" },
+    { label: "Spicy", key: "spicy" },
+    { label: "Earthy", key: "earthy" },
+    { label: "Cinnamon", key: "cinnamon" },
+    { label: "Clove", key: "clove" },
+    { label: "Blueberry", key: "blueberry" },
+    { label: "Blackcurrant", key: "blackcurrant" },
+    { label: "Vanilla", key: "vanilla" },
+    { label: "Floral", key: "floral" },
+    { label: "Honey", key: "honey" },
+    { label: "Smoke", key: "smoke" },
+    { label: "Milk Chocolate", key: "milk_chocolate" },
+    { label: "Tropical Fruit", key: "tropical_fruit" },
+    { label: "Cardamom", key: "cardamom" },
+    { label: "Fruit", key: "fruit" },
+    { label: "Toffee", key: "toffee" },
+    { label: "Coconut", key: "coconut" },
+    { label: "Espresso", key: "espresso" },
   ];
 
-  const caffeineFilters = [
-    { label: "Decaf", key: "decaf" },
-    { label: "Regular", key: "regular" },
+  const regionFilters = [
+    { label: "Central America", key: "central_america" },
+    { label: "Africa", key: "africa" },
+    { label: "South America", key: "south_america" },
+    { label: "Asia Pacific", key: "asia_pacific" },
+    { label: "Middle East", key: "middle_east" },
   ];
 
   return (
@@ -162,63 +216,28 @@ const FiltersBarComponent = () => {
             </p>
           </button>
         </div>
-
-        <form className="flex items-center mx-auto">
-          <label className="sr-only">Search</label>
-          <div className="relative w-full">
-            <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-                className="ml-1"
-              >
-                <path
-                  d="M12.5 11H11.71L11.43 10.73C12.41 9.59 13 8.11 13 6.5C13 2.91 10.09 0 6.5 0C2.91 0 0 2.91 0 6.5C0 10.09 2.91 13 6.5 13C8.11 13 9.59 12.41 10.73 11.43L11 11.71V12.5L16 17.49L17.49 16L12.5 11ZM6.5 11C4.01 11 2 8.99 2 6.5C2 4.01 4.01 2 6.5 2C8.99 2 11 4.01 11 6.5C11 8.99 8.99 11 6.5 11Z"
-                  fill="black"
-                />
-              </svg>
-            </div>
-            <input
-              type="text"
-              id="simple-search"
-              className="border border-gray-300 text-gray-900 text-sm rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-[50rem] ps-[45px] p-2.5 pl-40 text-left sm:w-[17rem] sm:w-[15rem]"
-              placeholder="Search branch name..."
-              required
-            />
-          </div>
-          <div className="ml-[20px] mr-8 sm:ml-[10px] sm:mr-4">
-            <button className="px-4 py-2 rounded-3xl inline-flex bg-gray-300 hover:bg-emerald-800 sm:px-2">
-              <p className="mx-1 font-light text-lg text-white tracking-wide font-light sm:font-thin">
-                Search
-              </p>
-            </button>
-          </div>
-        </form>
       </div>
 
       <div className="mt-10 mx-48 w-80 h-[400px] sm:mx-10 sm:mt-4">
         <FiltersSection
-          title="Categories"
-          filters={categoryFilters}
+          title="Grind Option"
+          filters={GrindOption}
           isVisible={isCategoryVisible}
           toggleVisibility={() => setCategoryVisible(!isCategoryVisible)}
           categories={categories}
           handleCategoryChange={handleCategoryChange}
         />
         <FiltersSection
-          title="Roast"
-          filters={roastFilters}
+          title="Flavor Profile"
+          filters={FlavorProfile}
           isVisible={isRoastVisible}
           toggleVisibility={() => setRoastVisible(!isRoastVisible)}
           categories={categories}
           handleCategoryChange={handleCategoryChange}
         />
         <FiltersSection
-          title="Caffeine"
-          filters={caffeineFilters}
+          title="Region"
+          filters={regionFilters}
           isVisible={isCaffeineVisible}
           toggleVisibility={() => setCaffeineVisible(!isCaffeineVisible)}
           categories={categories}
