@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import FiltersBarComponent from "../FiltersBarComponent/FiltersBarComponent";
+import HeroSection from "../HeroSectionComponent/HeroSection";
+import Footer from "../Footer/Footer";
 
 // Define the type for a product
 interface Product {
@@ -17,12 +18,123 @@ interface Product {
   image_url: string;
 }
 
+const FilterCheckbox = ({ label, checked = false, onChange }) => (
+  <label className="flex items-center my-2">
+    <input
+      type="checkbox"
+      checked={checked}
+      onChange={onChange}
+      className="mr-2 w-5 h-5"
+    />
+    {label}
+  </label>
+);
+
+const ArrowIcon = ({ isOpen }) => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={`ml-2 transition-transform duration-200 ${
+      isOpen ? "transform rotate-180" : ""
+    }`}
+  >
+    <path
+      d="M4 6L8 10L12 6"
+      stroke="black"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const FiltersSection = ({
+  title,
+  filters,
+  isVisible,
+  toggleVisibility,
+  categories,
+  handleCategoryChange,
+}) => (
+  <>
+    <h2
+      className="font-medium text-xl mt-4 font-mulish cursor-pointer sm:text-base sm:mt-2 flex items-center justify-between"
+      onClick={toggleVisibility}
+    >
+      {title}
+      <ArrowIcon isOpen={isVisible} />
+    </h2>
+    <div className="w-full h-[2px] bg-[#D9D9D9] my-2" />
+    {isVisible && (
+      <div className="flex flex-col">
+        {filters.map(({ label, key }) => (
+          <FilterCheckbox
+            key={key}
+            label={label}
+            checked={categories[key]}
+            onChange={() => handleCategoryChange(key)}
+          />
+        ))}
+      </div>
+    )}
+  </>
+);
+
 const ProductList: React.FC = () => {
+  const initialCategoriesState = {
+    wholeBean: false,
+    Cafetiere: false,
+    Filter: false,
+    Espresso: false,
+    FrenchPress: false,
+    PourOver: false,
+    darkChocolate: false,
+    blackCherry: false,
+    citrus: false,
+    toastedNuts: false,
+    caramel: false,
+    cocoa: false,
+    hazelnut: false,
+    molasses: false,
+    nutty: false,
+    smooth: false,
+    spicy: false,
+    earthy: false,
+    cinnamon: false,
+    clove: false,
+    blueberry: false,
+    blackcurrant: false,
+    vanilla: false,
+    floral: false,
+    honey: false,
+    smoke: false,
+    milkChocolate: false,
+    tropicalFruit: false,
+    cardamom: false,
+    fruit: false,
+    toffee: false,
+    coconut: false,
+    espresso: false,
+    centralAmerica: false,
+    africa: false,
+    southAmerica: false,
+    asiaPacific: false,
+    middleEast: false,
+  };
+
+  const [categories, setCategories] = useState(initialCategoriesState);
+  const [isCategoryVisible, setCategoryVisible] = useState(false);
+  const [isRoastVisible, setRoastVisible] = useState(false);
+  const [isCaffeineVisible, setCaffeineVisible] = useState(false);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const itemsPerPage = 12; // Set the number of items per page
+  const [filteredProductss, setFilteredProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -40,6 +152,102 @@ const ProductList: React.FC = () => {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 640px)");
+    const handleMediaQueryChange = (e) => {
+      const isWideScreen = e.matches;
+      setCategoryVisible(isWideScreen);
+      setRoastVisible(isWideScreen);
+      setCaffeineVisible(isWideScreen);
+    };
+
+    handleMediaQueryChange(mediaQuery);
+    mediaQuery.addEventListener("change", handleMediaQueryChange);
+
+    return () => {
+      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+    };
+  }, []);
+
+  const handleCategoryChange = (category) => {
+    setCategories((prevCategories) => {
+      const isChecked = !prevCategories[category];
+
+      // Log "Hi" or "cancel" based on the checked state
+      if (!isChecked) {
+        setFilteredProducts([]); // Clear filtered products when clearing filters
+      }
+
+      return {
+        ...prevCategories,
+        [category]: isChecked,
+      };
+    });
+
+    // Check if the category being changed is "Dark Chocolate"
+    if (category === "dark_chocolate") {
+      // Filter products with flavor profile "Dark Chocolate"
+      const darkChocolateProducts = products.filter((product) =>
+        product.flavor_profile.includes("Dark Chocolate")
+      );
+
+      // Update the displayed products state based on the filter
+      setFilteredProducts(darkChocolateProducts);
+    }
+  };
+
+  const handleClearFilters = () => {
+    setCategories(initialCategoriesState);
+    setFilteredProducts([]); // Clear filtered products when clearing filters
+  };
+
+  const GrindOption = [
+    { label: "Whole Bean", key: "wholeBean" },
+    { label: "Cafetiere", key: "reserve" },
+    { label: "Filter", key: "via" },
+    { label: "Espresso", key: "origami" },
+    { label: "French Press", key: "teavana" },
+    { label: "Pour Over", key: "syrup" },
+  ];
+
+  const FlavorProfile = [
+    { label: "Dark Chocolate", key: "dark_chocolate" },
+    { label: "Black Cherry", key: "black_cherry" },
+    { label: "Citrus", key: "citrus" },
+    { label: "Toasted Nuts", key: "toasted_nuts" },
+    { label: "Caramel", key: "caramel" },
+    { label: "Cocoa", key: "cocoa" },
+    { label: "Hazelnut", key: "hazelnut" },
+    { label: "Molasses", key: "molasses" },
+    { label: "Nutty", key: "nutty" },
+    { label: "Smooth", key: "smooth" },
+    { label: "Spicy", key: "spicy" },
+    { label: "Earthy", key: "earthy" },
+    { label: "Cinnamon", key: "cinnamon" },
+    { label: "Clove", key: "clove" },
+    { label: "Blueberry", key: "blueberry" },
+    { label: "Blackcurrant", key: "blackcurrant" },
+    { label: "Vanilla", key: "vanilla" },
+    { label: "Floral", key: "floral" },
+    { label: "Honey", key: "honey" },
+    { label: "Smoke", key: "smoke" },
+    { label: "Milk Chocolate", key: "milk_chocolate" },
+    { label: "Tropical Fruit", key: "tropical_fruit" },
+    { label: "Cardamom", key: "cardamom" },
+    { label: "Fruit", key: "fruit" },
+    { label: "Toffee", key: "toffee" },
+    { label: "Coconut", key: "coconut" },
+    { label: "Espresso", key: "espresso" },
+  ];
+
+  const regionFilters = [
+    { label: "Central America", key: "central_america" },
+    { label: "Africa", key: "africa" },
+    { label: "South America", key: "south_america" },
+    { label: "Asia Pacific", key: "asia_pacific" },
+    { label: "Middle East", key: "middle_east" },
+  ];
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
@@ -49,12 +257,13 @@ const ProductList: React.FC = () => {
     setCurrentPage(1); // Reset to the first page whenever the search query changes
   };
 
-  const filteredProducts = products.filter(product =>
+  const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, filteredProducts.length);
+
   const displayedProducts = filteredProducts.slice(startIndex, endIndex);
 
   if (loading) {
@@ -63,66 +272,162 @@ const ProductList: React.FC = () => {
 
   return (
     <>
-    <FiltersBarComponent />
-    <div className="absolute w-[900px] h-auto ml-[550px] -mt-[500px] p-4 mb-4">
-      <div className="mb-4">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={handleSearchChange}
-          placeholder="Search product name..."
-          className="border border-gray-300 text-gray-900 text-sm rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+      <HeroSection />
+      <div className="mt-20 inline-flex px-48 w-10 sm:mt-6 sm:px-0">
+        <h2 className="font-medium text-2xl text-center font-mulish sm:hidden">
+          Filters
+        </h2>
+        <div className="ml-32 mr-8 sm:ml-2 sm:mr-2 text-[#067655] hover:text-white">
+          <button
+            className="px-4 py-1 border rounded-3xl inline-flex border-[#067655] hover:bg-emerald-800 sm:hidden "
+            onClick={handleClearFilters}
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 14 14"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="m-2"
+            >
+              <path
+                d="M1.4 14L0 12.6L5.6 7L0 1.4L1.4 0L7 5.6L12.6 0L14 1.4L8.4 7L14 12.6L12.6 14L7 8.4L1.4 14Z"
+                fill="#067655"
+              />
+            </svg>
+            <p className="mx-1 font-light text-lg font-mulish">Clear</p>
+          </button>
+        </div>
+      </div>
+
+      <div className="mt-10 mx-48 w-80 h-[400px] sm:mx-10 sm:mt-4">
+        <FiltersSection
+          title="Grind Option"
+          filters={GrindOption}
+          isVisible={isCategoryVisible}
+          toggleVisibility={() => setCategoryVisible(!isCategoryVisible)}
+          categories={categories}
+          handleCategoryChange={handleCategoryChange}
+        />
+        <FiltersSection
+          title="Flavor Profile"
+          filters={FlavorProfile}
+          isVisible={isRoastVisible}
+          toggleVisibility={() => setRoastVisible(!isRoastVisible)}
+          categories={categories}
+          handleCategoryChange={handleCategoryChange}
+        />
+        <FiltersSection
+          title="Region"
+          filters={regionFilters}
+          isVisible={isCaffeineVisible}
+          toggleVisibility={() => setCaffeineVisible(!isCaffeineVisible)}
+          categories={categories}
+          handleCategoryChange={handleCategoryChange}
         />
       </div>
-      <div className="grid grid-cols-3 gap-6 mt-12">
-        {displayedProducts.map((product) => (
-          <Link to={`/${product.id}`} key={product.id} className="block">
-            <div className="bg-white shadow-md flex flex-col h-[500px]">
-              <p className="absolute text-gray-800 font-bold ml-4 mt-[465px] font-light">
-                Price : ${product.price}
-              </p>
-              <img
-                src={product.image_url}
-                alt={product.name}
-                className="w-full h-60 bg-[#1b4332] object-cover"
-              />
-              <div className="flex-grow m-4">
-                <h2 className="text-xl text-gray-800 font-mulish font-bold tracking-wide mb-2">
-                  Starbucks® {product.name}
-                </h2>
-
-                <div className="product-options">
-                  <div className="flex flex-wrap gap-2">
-                    {product.flavor_profile.map((option, index) => (
-                      <p
-                        className="border-black border-2 flex items-left justify-center rounded-3xl text-sm px-2 py-0.5 bg-black text-white"
-                        key={index}
-                      >
-                        {option}
-                      </p>
-                    ))}
+      <Footer />
+      <div className="w-[900px] h-auto ml-[550px] -mt-[2335px] p-4 mb-4">
+        <div className="mb-4">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={handleSearchChange}
+            placeholder="Search product name..."
+            className="z-10 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+          />
+        </div>
+        <>
+          {filteredProductss.length > 0 && (
+            <div className="grid grid-cols-3 gap-6 mt-12">
+              {filteredProductss.map((product) => (
+                <Link to={`/${product.id}`} key={product.id} className="block">
+                  <div className="bg-white shadow-md flex flex-col h-[500px]">
+                    <p className="absolute text-gray-800 font-bold ml-4 mt-[465px] font-light">
+                      Price : ${product.price}
+                    </p>
+                    <img
+                      src={product.image_url}
+                      alt={product.name}
+                      className="w-full h-60 bg-[#1b4332] object-cover"
+                    />
+                    <div className="flex-grow m-4">
+                      <h2 className="text-xl text-gray-800 font-mulish font-bold tracking-wide mb-2">
+                        Starbucks® {product.name}
+                      </h2>
+                      <div className="product-options">
+                        <div className="flex flex-wrap gap-2">
+                          {product.flavor_profile.map((option, index) => (
+                            <p
+                              className="border-black border-2 flex items-left justify-center rounded-3xl text-sm px-2 py-0.5 bg-black text-white"
+                              key={index}
+                            >
+                              {option}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </Link>
+              ))}
             </div>
-          </Link>
-        ))}
-      </div>
-      <div className="flex justify-center mt-4">
-        {[...Array(Math.ceil(filteredProducts.length / itemsPerPage)).keys()].map((page) => (
-          <button
-            key={page}
-            onClick={() => handlePageChange(page + 1)}
-            className={`mt-10 mx-2 py-1 px-3 rounded-md rounded-full ${
-              page + 1 === currentPage ? "bg-emerald-700 text-white " : "bg-gray-200 text-gray-800"
-            }`}
-          >
-            {page + 1}
-          </button>
-        ))}
-      </div>
+          )}
+          {filteredProductss.length === 0 && (
+            <div className="grid grid-cols-3 gap-6 mt-12">
+              {displayedProducts.map((product) => (
+                <Link to={`/${product.id}`} key={product.id} className="block">
+                  <div className="bg-white shadow-md flex flex-col h-[500px]">
+                    <p className="absolute text-gray-800 font-bold ml-4 mt-[465px] font-light">
+                      Price : ${product.price}
+                    </p>
+                    <img
+                      src={product.image_url}
+                      alt={product.name}
+                      className="w-full h-60 bg-[#1b4332] object-cover"
+                    />
+                    <div className="flex-grow m-4">
+                      <h2 className="text-xl text-gray-800 font-mulish font-bold tracking-wide mb-2">
+                        Starbucks® {product.name}
+                      </h2>
+                      <div className="product-options">
+                        <div className="flex flex-wrap gap-2">
+                          {product.flavor_profile.map((option, index) => (
+                            <p
+                              className="border-black border-2 flex items-left justify-center rounded-3xl text-sm px-2 py-0.5 bg-black text-white"
+                              key={index}
+                            >
+                              {option}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          )}
+        </>
 
-    </div>
+        <div className="flex justify-center mt-4">
+          {[
+            ...Array(Math.ceil(filteredProducts.length / itemsPerPage)).keys(),
+          ].map((page) => (
+            <button
+              key={page}
+              onClick={() => handlePageChange(page + 1)}
+              className={`mt-10 mx-2 py-1 px-3 rounded-md rounded-full ${
+                page + 1 === currentPage
+                  ? "bg-emerald-700 text-white "
+                  : "bg-gray-200 text-gray-800"
+              }`}
+            >
+              {page + 1}
+            </button>
+          ))}
+        </div>
+      </div>
     </>
   );
 };
