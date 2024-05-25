@@ -12,8 +12,61 @@ const FilterCheckbox = ({ label, checked, onChange }) => (
   </label>
 );
 
+const ArrowIcon = ({ isOpen }) => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 16 16"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={`ml-2 transition-transform duration-200 ${
+      isOpen ? "transform rotate-180" : ""
+    }`}
+  >
+    <path
+      d="M4 6L8 10L12 6"
+      stroke="black"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
+const FiltersSection = ({ 
+  title,
+  filters,
+  isVisible,
+  toggleVisibility,
+  categories,
+  handleCategoryChange,
+}) => (
+  <>
+    <h2
+      className="font-medium text-xl mt-4 font-mulish cursor-pointer sm:text-base sm:mt-2 flex items-center justify-between"
+      onClick={toggleVisibility}
+    >
+      {title}
+      <ArrowIcon isOpen={isVisible} />
+    </h2>
+    <div className="w-full h-[2px] bg-[#D9D9D9] my-2" />
+    {isVisible && (
+      <div className="flex flex-col">
+        {filters.map(({ label, key }) => (
+          <FilterCheckbox
+            key={key}
+            label={label}
+            checked={categories[key]}
+            onChange={() => handleCategoryChange(key)}
+          />
+        ))}
+      </div>
+    )}
+  </>
+);
+
 const FiltersBarComponent = () => {
-  const [categories, setCategories] = useState({
+  const initialCategoriesState = {
     wholeBean: false,
     reserve: false,
     via: false,
@@ -25,8 +78,9 @@ const FiltersBarComponent = () => {
     dark: false,
     decaf: false,
     regular: false,
-  });
+  };
 
+  const [categories, setCategories] = useState(initialCategoriesState);
   const [isCategoryVisible, setCategoryVisible] = useState(false);
   const [isRoastVisible, setRoastVisible] = useState(false);
   const [isCaffeineVisible, setCaffeineVisible] = useState(false);
@@ -34,15 +88,10 @@ const FiltersBarComponent = () => {
   useEffect(() => {
     const mediaQuery = window.matchMedia("(min-width: 640px)");
     const handleMediaQueryChange = (e) => {
-      if (e.matches) {
-        setCategoryVisible(true);
-        setRoastVisible(true);
-        setCaffeineVisible(true);
-      } else {
-        setCategoryVisible(false);
-        setRoastVisible(false);
-        setCaffeineVisible(false);
-      }
+      const isWideScreen = e.matches;
+      setCategoryVisible(isWideScreen);
+      setRoastVisible(isWideScreen);
+      setCaffeineVisible(isWideScreen);
     };
 
     handleMediaQueryChange(mediaQuery);
@@ -58,6 +107,10 @@ const FiltersBarComponent = () => {
       ...prevCategories,
       [category]: !prevCategories[category],
     }));
+  };
+
+  const handleClearFilters = () => {
+    setCategories(initialCategoriesState);
   };
 
   const categoryFilters = [
@@ -80,27 +133,6 @@ const FiltersBarComponent = () => {
     { label: "Regular", key: "regular" },
   ];
 
-  const ArrowIcon = ({ isOpen }) => (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      className={`ml-2 transition-transform duration-200 ${
-        isOpen ? "transform rotate-180" : ""
-      }`}
-    >
-      <path
-        d="M4 6L8 10L12 6"
-        stroke="black"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-
   return (
     <>
       <div className="mt-20 inline-flex px-48 w-full sm:mt-6 sm:px-0">
@@ -108,7 +140,10 @@ const FiltersBarComponent = () => {
           Filters
         </h2>
         <div className="ml-32 mr-8 sm:ml-2 sm:mr-2">
-          <button className="px-4 py-1 border rounded-3xl inline-flex border-[#067655] hover:bg-emerald-800 sm:hidden">
+          <button
+            className="px-4 py-1 border rounded-3xl inline-flex border-[#067655] hover:bg-emerald-800 sm:hidden"
+            onClick={handleClearFilters}
+          >
             <svg
               width="14"
               height="14"
@@ -164,69 +199,31 @@ const FiltersBarComponent = () => {
         </form>
       </div>
 
-      <div className="mt-10 mx-48 w-80 h-[400px] sm:mx-10 sm: mt-4">
-        <h2
-          className="font-medium text-xl font-mulish cursor-pointer sm:text-base sm:mt-2 flex items-center justify-between"
-          onClick={() => setCategoryVisible(!isCategoryVisible)}
-        >
-          Categories
-          <ArrowIcon isOpen={isCategoryVisible} />
-        </h2>
-        <div className="w-full h-[2px] bg-[#D9D9D9] my-2" />
-        {isCategoryVisible && (
-          <div className="flex flex-col">
-            {categoryFilters.map(({ label, key }) => (
-              <FilterCheckbox
-                key={key}
-                label={label}
-                checked={categories[key]}
-                onChange={() => handleCategoryChange(key)}
-              />
-            ))}
-          </div>
-        )}
-
-        <h2
-          className="font-medium text-xl mt-4 font-mulish cursor-pointer sm:text-base sm:mt-2 flex items-center justify-between"
-          onClick={() => setRoastVisible(!isRoastVisible)}
-        >
-          Roast
-          <ArrowIcon isOpen={isRoastVisible} />
-        </h2>
-        <div className="w-full h-[2px] bg-[#D9D9D9] my-2" />
-        {isRoastVisible && (
-          <div className="flex flex-col">
-            {roastFilters.map(({ label, key }) => (
-              <FilterCheckbox
-                key={key}
-                label={label}
-                checked={categories[key]}
-                onChange={() => handleCategoryChange(key)}
-              />
-            ))}
-          </div>
-        )}
-
-        <h2
-          className="font-medium text-xl mt-4 font-mulish cursor-pointer sm:text-base sm:mt-2 flex items-center justify-between"
-          onClick={() => setCaffeineVisible(!isCaffeineVisible)}
-        >
-          Caffeine
-          <ArrowIcon isOpen={isCaffeineVisible} />
-        </h2>
-        <div className="w-full h-[2px] bg-[#D9D9D9] my-2" />
-        {isCaffeineVisible && (
-          <div className="flex flex-col">
-            {caffeineFilters.map(({ label, key }) => (
-              <FilterCheckbox
-                key={key}
-                label={label}
-                checked={categories[key]}
-                onChange={() => handleCategoryChange(key)}
-              />
-            ))}
-          </div>
-        )}
+      <div className="mt-10 mx-48 w-80 h-[400px] sm:mx-10 sm:mt-4">
+        <FiltersSection
+          title="Categories"
+          filters={categoryFilters}
+          isVisible={isCategoryVisible}
+          toggleVisibility={() => setCategoryVisible(!isCategoryVisible)}
+          categories={categories}
+          handleCategoryChange={handleCategoryChange}
+        />
+        <FiltersSection
+          title="Roast"
+          filters={roastFilters}
+          isVisible={isRoastVisible}
+          toggleVisibility={() => setRoastVisible(!isRoastVisible)}
+          categories={categories}
+          handleCategoryChange={handleCategoryChange}
+        />
+        <FiltersSection
+          title="Caffeine"
+          filters={caffeineFilters}
+          isVisible={isCaffeineVisible}
+          toggleVisibility={() => setCaffeineVisible(!isCaffeineVisible)}
+          categories={categories}
+          handleCategoryChange={handleCategoryChange}
+        />
       </div>
     </>
   );

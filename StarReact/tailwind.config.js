@@ -5,7 +5,11 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        mulish: ['Mulish', 'sans-serif'],
+      },
+    },
     screens: {
       'sm': {'max': '639px'},
       'md': {'min': '640px'},
