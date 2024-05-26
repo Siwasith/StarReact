@@ -1,129 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import HeroSection from "../HeroSectionComponent/HeroSection";
-import Footer from "../Footer/Footer";
-
-interface Product {
-  _id: string;
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  region: string;
-  weight: number;
-  flavor_profile: string[];
-  grind_option: string[];
-  roast_level: number;
-  image_url: string;
-}
-
-const FilterCheckbox = ({ label, checked = false, onChange }) => (
-  <label className="flex items-center my-2">
-    <input
-      type="checkbox"
-      checked={checked}
-      onChange={onChange}
-      className="mr-2 w-5 h-5"
-    />
-    {label}
-  </label>
-);
-
-const ArrowIcon = ({ isOpen }) => (
-  <svg
-    width="16"
-    height="16"
-    viewBox="0 0 16 16"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    className={`ml-2 transition-transform duration-200 ${
-      isOpen ? "transform rotate-180" : ""
-    }`}
-  >
-    <path
-      d="M4 6L8 10L12 6"
-      stroke="black"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
-
-const FiltersSection = ({
-  title,
-  filters,
-  isVisible,
-  toggleVisibility,
-  categories,
-  handleCategoryChange,
-}) => (
-  <>
-    <h2
-      className="font-medium text-xl mt-4 font-mulish cursor-pointer tablet:text-base tablet:mt-2 flex items-center justify-between"
-      onClick={toggleVisibility}
-    >
-      {title}
-      <ArrowIcon isOpen={isVisible} />
-    </h2>
-    <div className="w-full h-[2px] bg-[#D9D9D9] my-2" />
-    {isVisible && (
-      <div className="flex flex-col">
-        {filters.map(({ label, key }) => (
-          <FilterCheckbox
-            key={key}
-            label={label}
-            checked={categories[key]}
-            onChange={() => !categories[key] && handleCategoryChange(key)}
-          />
-        ))}
-      </div>
-    )}
-  </>
-);
+import HeroSection from "../../Component/hero/HeroSection";
+import Footer from "../../Component/footer/Footer";
+import FiltersSection from "../../Component/filters/FiltersSection";
+import { Product } from "../../constants/ProductInterfaceFile";
+import { initialCategoriesState } from "../../constants/initialCategoriesState";
+import { FlavorProfile } from "../../constants/FlavorProfile";
+import { RegionFilters } from "../../constants/RegionFilters";
+import { GrindOption } from "../../constants/GrindOption";
 
 const ProductList: React.FC = () => {
-  const initialCategoriesState = {
-    wholeBean: false,
-    Cafetiere: false,
-    Filter: false,
-    Espresso: false,
-    FrenchPress: false,
-    PourOver: false,
-    darkChocolate: false,
-    blackCherry: false,
-    citrus: false,
-    toastedNuts: false,
-    caramel: false,
-    cocoa: false,
-    hazelnut: false,
-    molasses: false,
-    nutty: false,
-    smooth: false,
-    spicy: false,
-    earthy: false,
-    cinnamon: false,
-    clove: false,
-    blueberry: false,
-    blackcurrant: false,
-    vanilla: false,
-    floral: false,
-    honey: false,
-    smoke: false,
-    milkChocolate: false,
-    tropicalFruit: false,
-    cardamom: false,
-    fruit: false,
-    toffee: false,
-    coconut: false,
-    espresso: false,
-    centralAmerica: false,
-    africa: false,
-    southAmerica: false,
-    asiaPacific: false,
-    middleEast: false,
-  };
-
   const [categories, setCategories] = useState(initialCategoriesState);
   const [isCategoryVisible, setCategoryVisible] = useState(false);
   const [isRoastVisible, setRoastVisible] = useState(false);
@@ -168,99 +54,73 @@ const ProductList: React.FC = () => {
     };
   }, []);
 
-  const FlavorProfile = [
-    { label: "Dark Chocolate", key: "dark_chocolate" },
-    { label: "Black Cherry", key: "black_cherry" },
-    { label: "Citrus", key: "citrus" },
-    { label: "Caramel", key: "caramel" },
-    { label: "Cocoa", key: "cocoa" },
-    { label: "Hazelnut", key: "hazelnut" },
-    { label: "Molasses", key: "molasses" },
-    { label: "Nutty", key: "nutty" },
-    { label: "Smooth", key: "smooth" },
-    { label: "Spicy", key: "spicy" },
-    { label: "Earthy", key: "earthy" },
-    { label: "Cinnamon", key: "cinnamon" },
-    { label: "Clove", key: "clove" },
-    { label: "Blueberry", key: "blueberry" },
-    { label: "Blackcurrant", key: "blackcurrant" },
-    { label: "Vanilla", key: "vanilla" },
-    { label: "Floral", key: "floral" },
-    { label: "Honey", key: "honey" },
-    { label: "Smoke", key: "smoke" },
-    { label: "Milk Chocolate", key: "milk_chocolate" },
-    { label: "Tropical Fruit", key: "tropical_fruit" },
-    { label: "Cardamom", key: "cardamom" },
-    { label: "Fruit", key: "fruit" },
-    { label: "Toffee", key: "toffee" },
-    { label: "Coconut", key: "coconut" },
-  ];
-
-  const regionFilters = [
-    { label: "Central America", key: "centralAmerica" },
-    { label: "Africa", key: "africa" },
-    { label: "South America", key: "southAmerica" },
-    { label: "Asia Pacific", key: "asiaPacific" },
-    { label: "Middle East", key: "middleEast" },
-  ];
-
-  const GrindOption = [
-    { label: "Whole Bean", key: "wholeBean" },
-    { label: "Cafetiere", key: "cafetiere" },
-    { label: "Filter", key: "filter" },
-    { label: "Espresso", key: "espresso" },
-    { label: "French press", key: "frenchPress" },
-    { label: "Pour Over", key: "pourOver" },
-  ];
-
+  // This function handles the change in category filters.
   const handleCategoryChange = (category: string) => {
     setCategories((prevCategories) => {
+      // Toggle the checked state of the clicked category.
       const isChecked = !prevCategories[category];
+      const updatedCategories = { ...prevCategories, [category]: isChecked };
 
-      const updatedCategories = {
-        ...prevCategories,
-        [category]: isChecked,
-      };
+      // Get an array of active filters based on the updated category state.
+      const activeFilters = getActiveFilters(updatedCategories);
 
-      const activeFilters = Object.keys(updatedCategories).filter(
-        (key) => updatedCategories[key]
-      );
+      // Split active filters into flavor filters and other filters.
+      const { flavorFilters, otherFilters } = splitFilters(activeFilters);
 
-      const flavorFilters = activeFilters.filter((filter) =>
-        FlavorProfile.some((fp) => fp.key === filter)
-      );
-      const otherFilters = activeFilters.filter(
-        (filter) => !FlavorProfile.some((fp) => fp.key === filter)
-      );
-
+      // Filter the products based on the active filters.
       const filteredProductsActivetd = activeFilters.length
-        ? products.filter((product) => {
-            const matchesFlavors = flavorFilters.every((filter) => {
-              const flavor = FlavorProfile.find((fp) => fp.key === filter);
-              return flavor && product.flavor_profile.includes(flavor.label);
-            });
-
-            const matchesOthers = otherFilters.some((filter) => {
-              const region = regionFilters.find((fp2) => fp2.key === filter);
-              const grind = GrindOption.find((fp3) => fp3.key === filter);
-              return region
-                ? product.region === region.label
-                : grind
-                ? product.grind_option.includes(grind.label)
-                : false;
-            });
-
-            return (
-              matchesFlavors && (otherFilters.length === 0 || matchesOthers)
-            );
-          })
+        ? filterProducts(products, flavorFilters, otherFilters)
         : [];
 
+      // Update the state with the filtered products.
       setFilteredProducts(filteredProductsActivetd);
 
       return updatedCategories;
     });
   };
+
+  // This function returns an array of active filters.
+  const getActiveFilters = (categories: typeof initialCategoriesState) =>
+    Object.keys(categories).filter((key) => categories[key]);
+
+  // This function splits active filters into flavor filters and other filters.
+  const splitFilters = (activeFilters: string[]) => {
+    const flavorFilters = activeFilters.filter((filter) =>
+      FlavorProfile.some((fp) => fp.key === filter)
+    );
+    const otherFilters = activeFilters.filter(
+      (filter) => !FlavorProfile.some((fp) => fp.key === filter)
+    );
+    return { flavorFilters, otherFilters };
+  };
+
+  // This function filters the products based on the active filters.
+  const filterProducts = (
+    products: Product[],
+    flavorFilters: string[],
+    otherFilters: string[]
+  ) =>
+    products.filter((product) => {
+      // Check if the product matches all flavor filters.
+      const matchesFlavors = flavorFilters.every((filter) => {
+        const flavor = FlavorProfile.find((fp) => fp.key === filter);
+        return flavor && product.flavor_profile.includes(flavor.label);
+      });
+
+      // Check if the product matches any other filters.
+      const matchesOthers = otherFilters.some((filter) => {
+        const region = RegionFilters.find((fp2) => fp2.key === filter);
+        const grind = GrindOption.find((fp3) => fp3.key === filter);
+        return region
+          ? product.region === region.label
+          : grind
+          ? product.grind_option.includes(grind.label)
+          : false;
+      });
+
+      // Return true if the product matches all flavor filters and any other filters.
+      return matchesFlavors && (otherFilters.length === 0 || matchesOthers);
+    });
 
   const handleClearFilters = () => {
     setCategories(initialCategoriesState);
@@ -282,7 +142,6 @@ const ProductList: React.FC = () => {
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = Math.min(startIndex + itemsPerPage, filteredProducts.length);
-
   const displayedProducts = filteredProducts.slice(startIndex, endIndex);
 
   if (loading) {
@@ -338,7 +197,7 @@ const ProductList: React.FC = () => {
         />
         <FiltersSection
           title="Region"
-          filters={regionFilters}
+          filters={RegionFilters}
           isVisible={isCaffeineVisible}
           toggleVisibility={() => setCaffeineVisible(!isCaffeineVisible)}
           categories={categories}

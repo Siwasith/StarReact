@@ -1,5 +1,5 @@
 import React from "react";
-import CoffeeMachine from "../../img/coffee.jpg";
+import CoffeeMachine from "../../assets/img/coffee.jpg";
 
 const HeroSection: React.FC = () => {
   return (
