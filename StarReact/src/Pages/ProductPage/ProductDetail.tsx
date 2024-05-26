@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import ProductImage from "../../Component/product/ProductImage";
-import ProductInformation from "../../Component/product/ProductInformation";
+import ProductImage from "../../Component/Product/ProductImage";
+import ProductInformation from "../../Component/Product/ProductInformation";
 import Footer from "../../Component/footer/Footer";
 
 export interface Product {
@@ -54,7 +54,7 @@ const ProductDetail: React.FC = () => {
 
   return (
     <>
-      <div className="flex items-start mx-52 mt-8 p-4 mt-28 laptop:mx-10 laptop:flex-wrap laptop:justify-center tablet:mx-0 tablet:flex-wrap tablet:justify-center">
+      <div className="flex items-start mx-52 mt-8 p-4 mt-32 laptop:mx-10 laptop:flex-wrap laptop:justify-center tablet:mx-0 tablet:flex-wrap tablet:justify-center">
         <ProductImage imageUrl={product.image_url} name={product.name} />
         <ProductInformation product={product} />
       </div>

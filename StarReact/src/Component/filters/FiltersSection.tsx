@@ -1,5 +1,5 @@
 import React from "react";
-import FilterCheckbox from "./FilterCheckbox"
+import FilterCheckbox from "./FilterCheckbox";
 
 const ArrowIcon = ({ isOpen }) => (
   <svg

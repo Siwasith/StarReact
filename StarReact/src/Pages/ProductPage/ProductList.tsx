@@ -157,7 +157,7 @@ const ProductList: React.FC = () => {
           <h2 className="font-medium text-2xl text-center font-mulish">
             Filters
           </h2>
-          <div className="ml-32 mr-8 tablet:ml-2 tablet:mr-2 text-[#067655] laptop:ml-20 tablet:ml-36">
+          <div className="ml-36 mr-8 tablet:ml-2 tablet:mr-2 text-[#067655] laptop:ml-20 tablet:ml-36">
             <button
               className="px-4 py-1 border rounded-3xl inline-flex border-[#067655] hover:bg-gray-100"
               onClick={handleClearFilters}
@@ -173,7 +173,7 @@ const ProductList: React.FC = () => {
                 <path
                   d="M1.4 14L0 12.6L5.6 7L0 1.4L1.4 0L7 5.6L12.6 0L14 1.4L8.4 7L14 12.6L12.6 14L7 8.4L1.4 14Z"
                   fill="#067655"
-                />
+                />  
               </svg>
               <p className="mx-1 font-light text-lg font-mulish">Clear</p>
             </button>
