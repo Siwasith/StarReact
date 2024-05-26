@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import ProductImage from "../../Component/Product/ProductImage";
-import ProductInformation from "../../Component/Product/ProductInformation";
-import Footer from "../../Component/footer/Footer";
+import ProductImage from "../../Component/productComponent/ProductImage";
+import ProductInformation from "../../Component/productComponent/ProductInformation";
+import Footer from "../../Component/FooterComponent/Footer";
 
 export interface Product {
   _id: string;

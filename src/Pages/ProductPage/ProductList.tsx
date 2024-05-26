@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import HeroSection from "../../Component/hero/HeroSection";
-import Footer from "../../Component/footer/Footer";
+import HeroSection from "../../Component/heroComponent/HeroSection";
+import Footer from "../../Component/FooterComponent/Footer";
 import FiltersSection from "../../Component/filters/FiltersSection";
 import { Product } from "../../constants/ProductInterfaceFile";
 import { initialCategoriesState } from "../../constants/initialCategoriesState";
