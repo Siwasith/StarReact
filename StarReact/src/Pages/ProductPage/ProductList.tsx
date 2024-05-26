@@ -134,7 +134,6 @@ const ProductList: React.FC = () => {
   return (
     <>
       <HeroSection />
-
       <div className="mt-10 mx-48 w-80 h-[400px] tablet:mx-10 tablet:mt-4 laptop:mx-12 laptop:w-64 tablet:mx-12">
         <div className="mt-4 inline-flex w-10 tablet:mt-6 tablet:px-0 ">
           <h2 className="font-medium text-2xl text-center font-mulish">
@@ -210,7 +209,6 @@ const ProductList: React.FC = () => {
             />
           </svg>
         </div>
-
         <>
           {filteredProduct.length > 0 && (
             <>
