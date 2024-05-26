@@ -54,73 +54,56 @@ const ProductList: React.FC = () => {
     };
   }, []);
 
-  // This function handles the change in category filters.
   const handleCategoryChange = (category: string) => {
     setCategories((prevCategories) => {
-      // Toggle the checked state of the clicked category.
       const isChecked = !prevCategories[category];
       const updatedCategories = { ...prevCategories, [category]: isChecked };
 
-      // Get an array of active filters based on the updated category state.
       const activeFilters = getActiveFilters(updatedCategories);
 
-      // Split active filters into flavor filters and other filters.
-      const { flavorFilters, otherFilters } = splitFilters(activeFilters);
-
-      // Filter the products based on the active filters.
-      const filteredProductsActivetd = activeFilters.length
-        ? filterProducts(products, flavorFilters, otherFilters)
+      const filteredProductsActivated = activeFilters.length
+        ? filterProducts(products, activeFilters)
         : [];
 
-      // Update the state with the filtered products.
-      setFilteredProducts(filteredProductsActivetd);
+      setFilteredProducts(filteredProductsActivated);
 
       return updatedCategories;
     });
   };
 
-  // This function returns an array of active filters.
   const getActiveFilters = (categories: typeof initialCategoriesState) =>
     Object.keys(categories).filter((key) => categories[key]);
 
-  // This function splits active filters into flavor filters and other filters.
-  const splitFilters = (activeFilters: string[]) => {
-    const flavorFilters = activeFilters.filter((filter) =>
-      FlavorProfile.some((fp) => fp.key === filter)
-    );
-    const otherFilters = activeFilters.filter(
-      (filter) => !FlavorProfile.some((fp) => fp.key === filter)
-    );
-    return { flavorFilters, otherFilters };
-  };
-
-  // This function filters the products based on the active filters.
-  const filterProducts = (
-    products: Product[],
-    flavorFilters: string[],
-    otherFilters: string[]
-  ) =>
+  const filterProducts = (products: Product[], activeFilters: string[]) =>
     products.filter((product) => {
-      // Check if the product matches all flavor filters.
-      const matchesFlavors = flavorFilters.every((filter) => {
-        const flavor = FlavorProfile.find((fp) => fp.key === filter);
-        return flavor && product.flavor_profile.includes(flavor.label);
-      });
+      return activeFilters.every((filter) => {
+        const filterLabel = getFilterLabel(filter);
 
-      // Check if the product matches any other filters.
-      const matchesOthers = otherFilters.some((filter) => {
-        const region = RegionFilters.find((fp2) => fp2.key === filter);
-        const grind = GrindOption.find((fp3) => fp3.key === filter);
-        return region
-          ? product.region === region.label
-          : grind
-          ? product.grind_option.includes(grind.label)
-          : false;
+        switch (filterLabel.type) {
+          case "flavor":
+            return product.flavor_profile.includes(filterLabel.label);
+          case "region":
+            return product.region === filterLabel.label;
+          case "grind":
+            return product.grind_option.includes(filterLabel.label);
+          default:
+            return false;
+        }
       });
-
-      // Return true if the product matches all flavor filters and any other filters.
-      return matchesFlavors && (otherFilters.length === 0 || matchesOthers);
     });
+
+  const getFilterLabel = (filter: string) => {
+    const flavor = FlavorProfile.find((fp) => fp.key === filter);
+    if (flavor) return { type: "flavor", label: flavor.label };
+
+    const region = RegionFilters.find((rf) => rf.key === filter);
+    if (region) return { type: "region", label: region.label };
+
+    const grind = GrindOption.find((go) => go.key === filter);
+    if (grind) return { type: "grind", label: grind.label };
+
+    return { type: "unknown", label: "" };
+  };
 
   const handleClearFilters = () => {
     setCategories(initialCategoriesState);
@@ -173,7 +156,7 @@ const ProductList: React.FC = () => {
                 <path
                   d="M1.4 14L0 12.6L5.6 7L0 1.4L1.4 0L7 5.6L12.6 0L14 1.4L8.4 7L14 12.6L12.6 14L7 8.4L1.4 14Z"
                   fill="#067655"
-                />  
+                />
               </svg>
               <p className="mx-1 font-light text-lg font-mulish">Clear</p>
             </button>
