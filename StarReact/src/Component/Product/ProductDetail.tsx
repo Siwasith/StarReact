@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import Footer from "../Footer/Footer";
 import RoastLevel from "./RoastLevel/RoastLevel";
+import Footer from "../Footer/Footer";
 
 interface Product {
   _id: string;
@@ -52,9 +52,6 @@ const ProductDetail: React.FC = () => {
   if (!product) {
     return <div className="text-white">Product not found</div>;
   }
-
-  //   const description2 =
-  //     "Due to the unique geography and climate conditions of the southeastern region of carmo de minas, the most prominent processing method is sun-dried, which intrinsically carries the least amount of impact to the environment by using very little water. This coffee has a subtle acidity and a softer profile that highlights tropical fruits and sweet hazelnuts with a smooth caramelly texture that is best paired with caramel and chocolate.";
 
   return (
     <>
@@ -141,9 +138,7 @@ const ProductDetail: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="-mt-[1500px]">
-        <Footer />
-      </div>
+      <Footer />
     </>
   );
 };

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Navbar from "./Component/NavbarComponent/Navbar";
 import ProductList from "./Component/Product/ProductList";
 import ProductDetail from "./Component/Product/ProductDetail";
+// import Footer from "./Component/Footer/Footer";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Route path="/:id" element={<ProductDetail />} />
           </Routes>
       </div>
+      {/* <Footer /> */}
     </Router>
   );
 }

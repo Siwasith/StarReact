@@ -4,7 +4,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className="bg-[#303030] fixed top-0 left-0 w-full z-10">
       <div className="mx-44 flex justify-between m-3 sm:mx-5">
-        <a href="#" className="flex">
+        <a href="/" className="flex">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             x="0px"
