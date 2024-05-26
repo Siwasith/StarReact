@@ -60,7 +60,7 @@ const FiltersSection = ({
 }) => (
   <>
     <h2
-      className="font-medium text-xl mt-4 font-mulish cursor-pointer sm:text-base sm:mt-2 flex items-center justify-between"
+      className="font-medium text-xl mt-4 font-mulish cursor-pointer tablet:text-base tablet:mt-2 flex items-center justify-between"
       onClick={toggleVisibility}
     >
       {title}
@@ -293,14 +293,14 @@ const ProductList: React.FC = () => {
     <>
       <HeroSection />
 
-      <div className="mt-10 mx-48 w-80 h-[400px] sm:mx-10 sm:mt-4 ">
-        <div className="mt-4 inline-flex w-10 sm:mt-6 sm:px-0 ">
-          <h2 className="font-medium text-2xl text-center font-mulish sm:hidden">
+      <div className="mt-10 mx-48 w-80 h-[400px] tablet:mx-10 tablet:mt-4 laptop:mx-12 laptop:w-64 tablet:mx-12">
+        <div className="mt-4 inline-flex w-10 tablet:mt-6 tablet:px-0 ">
+          <h2 className="font-medium text-2xl text-center font-mulish">
             Filters
           </h2>
-          <div className="ml-32 mr-8 sm:ml-2 sm:mr-2 text-[#067655]">
+          <div className="ml-32 mr-8 tablet:ml-2 tablet:mr-2 text-[#067655] laptop:ml-20 tablet:ml-36">
             <button
-              className="px-4 py-1 border rounded-3xl inline-flex border-[#067655] hover:bg-gray-100 sm:hidden "
+              className="px-4 py-1 border rounded-3xl inline-flex border-[#067655] hover:bg-gray-100"
               onClick={handleClearFilters}
             >
               <svg
@@ -345,15 +345,28 @@ const ProductList: React.FC = () => {
           handleCategoryChange={handleCategoryChange}
         />
       </div>
-      <div className="w-[900px] h-auto ml-[550px] -mt-[400px] p-4 mb-4">
-        <div className="mb-4">
+      <div className="w-[900px] h-auto ml-[550px] -mt-[400px] p-4 mb-4 laptop:ml-[350px] laptop:w-[600px] tablet:ml-[30px] tablet:w-[350px] tablet:-mt-[200px]">
+        <div className="mb-4 relative">
           <input
             type="text"
             value={searchQuery}
             onChange={handleSearchChange}
-            placeholder="Search product name..."
-            className="z-10 border border-gray-300 text-gray-900 text-sm rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+            placeholder="Starbucks Product"
+            className="font-mulish z-10 border border-gray-300 text-gray-900 text-base rounded-3xl focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 pl-10 tracking-wider font-extralight "
           />
+          <svg
+            className="absolute top-1/2 left-3 transform -translate-y-1/2 ml-1"
+            width="18"
+            height="18"
+            viewBox="0 0 18 18"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M12.5 11H11.71L11.43 10.73C12.41 9.59 13 8.11 13 6.5C13 2.91 10.09 0 6.5 0C2.91 0 0 2.91 0 6.5C0 10.09 2.91 13 6.5 13C8.11 13 9.59 12.41 10.73 11.43L11 11.71V12.5L16 17.49L17.49 16L12.5 11ZM6.5 11C4.01 11 2 8.99 2 6.5C2 4.01 4.01 2 6.5 2C8.99 2 11 4.01 11 6.5C11 8.99 8.99 11 6.5 11Z"
+              fill="currentColor"
+            />
+          </svg>
         </div>
 
         <>
@@ -386,14 +399,14 @@ const ProductList: React.FC = () => {
                 </svg>
                 <h2 className="text-white text-center">Filtered</h2>
               </div>
-              <div className="grid grid-cols-3 gap-6 mt-4">
+              <div className="grid grid-cols-3 gap-6 mt-4 laptop:grid-cols-2 tablet:grid-cols-1">
                 {filteredProduct.map((product) => (
                   <Link
                     to={`/${product.id}`}
                     key={product.id}
                     className="block"
                   >
-                    <div className="bg-white shadow-md flex flex-col h-[500px]">
+                    <div className="bg-white drop-shadow flex flex-col h-[500px] hover:drop-shadow-xl ease-in-out duration-100">
                       <p className="absolute text-gray-800 font-bold ml-4 mt-[465px] font-light">
                         Price : ${product.price}
                       </p>
@@ -427,14 +440,14 @@ const ProductList: React.FC = () => {
           )}
           {filteredProduct.length === 0 && (
             <>
-              <div className="grid grid-cols-3 gap-6 mt-12">
+              <div className="grid grid-cols-3 gap-6 mt-12 laptop:grid-cols-2 tablet:grid-cols-1">
                 {displayedProducts.map((product) => (
                   <Link
                     to={`/${product.id}`}
                     key={product.id}
                     className="block"
                   >
-                    <div className="bg-white shadow-md flex flex-col h-[500px]">
+                    <div className="bg-white drop-shadow flex flex-col h-[500px] hover:drop-shadow-md ease-in-out duration-100">
                       <p className="absolute text-gray-800 font-bold ml-4 mt-[465px] font-light">
                         Price : ${product.price}
                       </p>

@@ -52,20 +52,56 @@ const ProductDetail: React.FC = () => {
   if (!product) {
     return <div className="text-white">Product not found</div>;
   }
-
   return (
     <>
-      <div className="flex items-start lg:justify-start mx-52 mt-8 p-4 mt-36">
-        <div className="bg-[#081c15] p-4 pb-0">
+      <div className="flex items-start mx-52 mt-8 p-4 mt-28 laptop:mx-10 laptop:flex-wrap laptop:justify-center tablet:mx-0 tablet:flex-wrap tablet:justify-center">
+        <div className="relative bg-[#081c15] p-4 pb-0 laptop:mb-20 tablet:mb-10 tablet:mt-[70px]">
           <img
             src={product.image_url}
             alt={product.name}
-            className="w-[28rem] h-[28rem] object-cover mb-4 bg-[#1b4332]"
+            className="w-[28rem] h-[28rem] object-cover mb-4 bg-[#1b4332] tablet:w-[18rem] tablet:h-[18rem] "
           />
+          <div className="absolute bottom-0 left-[390px] right-0 text-white py-2 text-center">
+            <button className="m-4">
+              <svg
+                viewBox="-2.4 -2.4 28.80 28.80"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                stroke="#FFFFFF"
+                className="w-10 h-10"
+              >
+                <g id="SVGRepo_bgCarrier" stroke-width="0">
+                  <rect
+                    x="-2.4"
+                    y="-2.4"
+                    width="28.80"
+                    height="28.80"
+                    rx="14.4"
+                    fill="#000"
+                  ></rect>
+                </g>
+                <g
+                  id="SVGRepo_tracerCarrier"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                ></g>
+                <g id="SVGRepo_iconCarrier">
+                  {" "}
+                  <path
+                    d="M4 12H20M20 12L16 8M20 12L16 16"
+                    stroke="#FFFF"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>{" "}
+                </g>
+              </svg>
+            </button>
+          </div>
         </div>
 
         <div className="lg:flex-1 ml-8">
-          <h2 className="text-3xl text-gray-800 font-mulish tracking-wide mb-2 max-w-[700px] break">
+          <h2 className="text-3xl text-gray-800 font-mulish tracking-wide mb-2 max-w-[700px] break tablet:absolute tablet:top-[100px]">
             Starbucks® {product.name}
           </h2>
           <div className="flex flex-wrap gap-2 my-4">
@@ -138,9 +174,12 @@ const ProductDetail: React.FC = () => {
           </div>
         </div>
       </div>
+
       <Footer />
     </>
   );
 };
 
 export default ProductDetail;
+
+

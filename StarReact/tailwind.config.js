@@ -11,8 +11,12 @@ export default {
       },
     },
     screens: {
-      'sm': {'max': '639px'},
-      'md': {'min': '640px'},
+      'tablet': {'max': '640px'},
+      'laptop': {
+        'min': '641px',
+        'max': '1024px'
+      },
+
     }
   },
   plugins: [],
