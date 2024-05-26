@@ -3,9 +3,16 @@ import React from "react";
 interface ProductImageProps {
   imageUrl: string;
   name: string;
+  onNextImage: () => void;
+  onPrevImage: () => void;
 }
 
-const ProductImage: React.FC<ProductImageProps> = ({ imageUrl, name }) => {
+const ProductImage: React.FC<ProductImageProps> = ({
+  imageUrl,
+  name,
+  onNextImage,
+  onPrevImage,
+}) => {
   return (
     <div className="relative bg-[#081c15] p-4 pb-0 laptop:mb-20 tablet:mb-10 tablet:mt-[70px]">
       <img
@@ -13,38 +20,55 @@ const ProductImage: React.FC<ProductImageProps> = ({ imageUrl, name }) => {
         alt={name}
         className="w-[28rem] h-[28rem] object-cover mb-4 bg-[#1b4332] tablet:w-[18rem] tablet:h-[18rem] "
       />
-      <div className="absolute bottom-0 left-[400px] right-0 text-white py-2 text-cente tablet:left-[250px]">
-        <button className="m-4">
+      <div className="absolute bottom-0 top-[200px] text-white py-2 text-center tablet:h-[2rem] tablet:w-[18rem] tablet:top-[270px]">
+        <button onClick={onPrevImage}>
           <svg
-            viewBox="-2.4 -2.4 28.80 28.80"
+            viewBox="0 0 24 24"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            stroke="#FFFFFF"
-            className="w-8 h-8"
+            className="h-10 w-10 tablet:h-5 tablet:w-5 "
           >
-            <g id="SVGRepo_bgCarrier" strokeWidth="0">
-              <rect
-                x="-2.4"
-                y="-2.4"
-                width="28.80"
-                height="28.80"
-                rx="14.4"
-                fill="#000"
-              ></rect>
-            </g>
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
             <g
               id="SVGRepo_tracerCarrier"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+              stroke-linecap="round"
+              stroke-linejoin="round"
             ></g>
             <g id="SVGRepo_iconCarrier">
+              {" "}
               <path
-                d="M4 12H20M20 12L16 8M20 12L16 16"
-                stroke="#FFFF"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              ></path>
+                d="M15 6L9 12L15 18"
+                stroke="#FFFFFF"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>{" "}
+            </g>
+          </svg>
+        </button>
+        <button className="ml-[370px] tablet:ml-[0px]" onClick={onNextImage}>
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            transform="matrix(1, 0, 0, 1, 0, 0)rotate(180)"
+            className="h-10 w-10 tablet:h-5 tablet:w-5"
+          >
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g
+              id="SVGRepo_tracerCarrier"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></g>
+            <g id="SVGRepo_iconCarrier">
+              {" "}
+              <path
+                d="M15 6L9 12L15 18"
+                stroke="#FFFFFF"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              ></path>{" "}
             </g>
           </svg>
         </button>

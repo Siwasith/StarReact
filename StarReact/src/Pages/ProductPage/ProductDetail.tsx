@@ -24,6 +24,11 @@ const ProductDetail: React.FC = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [productPic, setProductPic] = useState([
+    "https://iili.io/H8Y7j3J.webp",
+    "https://iili.io/H8Y7Opp.webp",
+    "https://iili.io/H8Y7ckQ.webp",
+  ]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -33,14 +38,30 @@ const ProductDetail: React.FC = () => {
         );
         const productData = response.data[0];
         setProduct(productData);
+        setProductPic([...productPic, productData?.image_url]);
       } catch (error) {
         setError("Failed to fetch product details.");
       } finally {
         setLoading(false);
       }
     };
+
     fetchProduct();
-  }, [id]);
+  }, [id, productPic]);
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const handleNextImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === productPic.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const handlePrevImage = () => {
+    setCurrentImageIndex((prevIndex) =>
+      prevIndex === 0 ? productPic.length - 1 : prevIndex - 1
+    );
+  };
 
   if (loading) {
     return <div className="text-white">Loading...</div>;
@@ -55,12 +76,16 @@ const ProductDetail: React.FC = () => {
   return (
     <>
       <div className="flex items-start mx-52 mt-8 p-4 mt-32 laptop:mx-10 laptop:flex-wrap laptop:justify-center tablet:mx-0 tablet:flex-wrap tablet:justify-center">
-        <ProductImage imageUrl={product.image_url} name={product.name} />
+        <ProductImage
+          imageUrl={productPic[currentImageIndex]}
+          name={product.name}
+          onNextImage={handleNextImage}
+          onPrevImage={handlePrevImage}
+        />
         <ProductInformation product={product} />
       </div>
       <Footer />
     </>
   );
 };
-
 export default ProductDetail;
