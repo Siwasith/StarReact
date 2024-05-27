@@ -43,11 +43,12 @@ const FiltersSection = ({
       <div className="flex flex-col">
         {filters.map(({ label, key }) => (
           <FilterCheckbox
-            key={key}
-            label={label}
-            checked={categories[key]}
-            onChange={() => !categories[key] && handleCategoryChange(key)}
-          />
+          key={key}
+          label={label}
+          checked={categories[key]}
+          onChange={() => handleCategoryChange(key)}
+        />
+        
         ))}
       </div>
     )}
