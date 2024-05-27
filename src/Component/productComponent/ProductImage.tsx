@@ -20,7 +20,7 @@ const ProductImage: React.FC<ProductImageProps> = ({
         alt={name}
         className="w-[28rem] h-[28rem] object-cover mb-4 bg-[#1b4332] tablet:w-[18rem] tablet:h-[18rem] "
       />
-      <div className="absolute inline-flex bottom-0 top-[200px] h-[2rem] mr-2 text-white py-2 text-center tablet:h-[2rem] tablet:w-[18rem] tablet:top-[270px]">
+      <div className="absolute inline-flex bottom-0 top-[200px] h-[2rem] mr-2 text-white py-2 text-center tablet:h-[2rem] tablet:w-[18rem] tablet:top-[270px] tablet:left-[140px]">
         <button onClick={onPrevImage}>
           <svg
             viewBox="0 0 24 24"
