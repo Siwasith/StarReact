@@ -75,7 +75,7 @@ const ProductDetail: React.FC = () => {
 
   return (
     <>
-      <div className="flex items-start mx-52 mt-8 p-4 mt-32 laptop:mx-10 laptop:flex-wrap laptop:justify-center tablet:mx-0 tablet:flex-wrap tablet:justify-center">
+      <div className="flex items-start mx-52 mt-28 p-4 mt-32 laptop:mx-10 laptop:flex-wrap laptop:justify-center tablet:mx-0 tablet:flex-wrap tablet:justify-center">
         <ProductImage
           imageUrl={productPic[currentImageIndex]}
           name={product.name}
