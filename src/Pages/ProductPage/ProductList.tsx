@@ -224,7 +224,7 @@ const ProductList: React.FC = () => {
                   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                   <g
                     id="SVGRepo_tracerCarrier"
-                    stroke-linecap="round"
+                   
                     stroke-linejoin="round"
                   ></g>
                   <g id="SVGRepo_iconCarrier">
@@ -233,7 +233,7 @@ const ProductList: React.FC = () => {
                       d="M4 12.6111L8.92308 17.5L20 6.5"
                       stroke="#FFFFF"
                       stroke-width="2"
-                      stroke-linecap="round"
+           
                       stroke-linejoin="round"
                     ></path>{" "}
                   </g>

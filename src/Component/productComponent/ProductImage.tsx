@@ -20,7 +20,7 @@ const ProductImage: React.FC<ProductImageProps> = ({
         alt={name}
         className="w-[28rem] h-[28rem] object-cover mb-4 bg-[#1b4332] tablet:w-[18rem] tablet:h-[18rem] "
       />
-      <div className="absolute inline-flex bottom-0 top-[200px] h-[2rem] mr-2 text-white py-2 text-center tablet:h-[2rem] tablet:w-[18rem] tablet:top-[270px] tablet:left-[140px]">
+      <div className="absolute bottom-0 top-[200px] h-[2rem] text-white py-2 text-center tablet:h-[2rem] tablet:w-[18rem] tablet:top-[270px]">
         <button onClick={onPrevImage}>
           <svg
             viewBox="0 0 24 24"
@@ -28,21 +28,11 @@ const ProductImage: React.FC<ProductImageProps> = ({
             xmlns="http://www.w3.org/2000/svg"
             className="h-10 w-10 tablet:h-5 tablet:w-5 "
           >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g
-              id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></g>
+            <g id="SVGRepo_bgCarrier"></g>
+            <g id="SVGRepo_tracerCarrier"></g>
             <g id="SVGRepo_iconCarrier">
               {" "}
-              <path
-                d="M15 6L9 12L15 18"
-                stroke="#FFFFFF"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>{" "}
+              <path d="M15 6L9 12L15 18" stroke="#FFFFFF"></path>{" "}
             </g>
           </svg>
         </button>
@@ -54,21 +44,11 @@ const ProductImage: React.FC<ProductImageProps> = ({
             transform="matrix(1, 0, 0, 1, 0, 0)rotate(180)"
             className="h-10 w-10 tablet:h-5 tablet:w-5"
           >
-            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-            <g
-              id="SVGRepo_tracerCarrier"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            ></g>
+            <g id="SVGRepo_bgCarrier"></g>
+            <g id="SVGRepo_tracerCarrier"></g>
             <g id="SVGRepo_iconCarrier">
               {" "}
-              <path
-                d="M15 6L9 12L15 18"
-                stroke="#FFFFFF"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              ></path>{" "}
+              <path d="M15 6L9 12L15 18" stroke="#FFFFFF"></path>{" "}
             </g>
           </svg>
         </button>
