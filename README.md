@@ -20,12 +20,14 @@ If you are developing a production application, we recommend updating the config
 install project
 
 ```
+
 npm install
+
+npm install axios
+
+npm install react-router-dom@latest
+
 npm run build
-```
 
-run project
-
-```
 npm run dev
 ```
