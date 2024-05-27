@@ -23,11 +23,5 @@ install project
 
 npm install
 
-npm install axios
-
-npm install react-router-dom@latest
-
-npm run build
-
 npm run dev
 ```
