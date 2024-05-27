@@ -8,6 +8,7 @@ import { initialCategoriesState } from "../../constants/initialCategoriesState";
 import { FlavorProfile } from "../../constants/FlavorProfile";
 import { RegionFilters } from "../../constants/RegionFilters";
 import { GrindOption } from "../../constants/GrindOption";
+import Loading from "../../Component/LoadingComponent/CenteredSpinner";
 
 const ProductList: React.FC = () => {
   const [categories, setCategories] = useState(initialCategoriesState);
@@ -128,7 +129,7 @@ const ProductList: React.FC = () => {
   const displayedProducts = filteredProducts.slice(startIndex, endIndex);
 
   if (loading) {
-    return <div className="text-white">Loading...</div>;
+    return <Loading />;
   }
 
   return (

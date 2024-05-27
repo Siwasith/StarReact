@@ -4,6 +4,7 @@ import axios from "axios";
 import ProductImage from "../../Component/productComponent/ProductImage";
 import ProductInformation from "../../Component/productComponent/ProductInformation";
 import Footer from "../../Component/FooterComponent/Footer";
+import Loading from "../../Component/LoadingComponent/CenteredSpinner";
 
 export interface Product {
   _id: string;
@@ -64,7 +65,7 @@ const ProductDetail: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="text-white">Loading...</div>;
+    return <Loading />;
   }
 
   if (error || !product) {
