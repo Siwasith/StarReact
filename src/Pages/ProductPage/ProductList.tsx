@@ -66,7 +66,7 @@ const ProductList: React.FC = () => {
         ? filterProducts(products, activeFilters)
         : [];
 
-        setFilteredProducts(filteredProductsActivated);
+      setFilteredProducts(filteredProductsActivated);
 
       return updatedCategories;
     });
@@ -195,10 +195,22 @@ const ProductList: React.FC = () => {
       </div>
       <div
         className={`w-[900px] h-auto ml-[550px] -mt-[400px] p-4 mb-4 laptop:ml-[300px] laptop:w-auto tablet:ml-[30px] tablet:w-[350px] ${
-          isFilterisCategoryVisible ||
-          isFilterisRoastVisible ||
+          isFilterisCategoryVisible &&
+          isFilterisRoastVisible &&
           isFilterisCaffeineVisible
-            ? "tablet:mt-[50px]"
+            ? "tablet:mt-[1250px] "
+            : isFilterisCategoryVisible && isFilterisRoastVisible
+            ? "tablet:mt-[1100px] "
+            : isFilterisCategoryVisible && isFilterisCaffeineVisible
+            ? "tablet:mt-[300px] "
+            : isFilterisRoastVisible && isFilterisCaffeineVisible
+            ? "tablet:mt-[1020px] "
+            : isFilterisCategoryVisible
+            ? "tablet:mt-[60px] "
+            : isFilterisRoastVisible
+            ? "tablet:mt-[800px] "
+            : isFilterisCaffeineVisible
+            ? "tablet:mt-[10px] "
             : "tablet:-mt-[200px]"
         }`}
       >
