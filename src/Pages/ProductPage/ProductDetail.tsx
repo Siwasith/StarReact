@@ -54,13 +54,21 @@ const ProductDetail: React.FC = () => {
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === productPic.length - 1 ? 0 : prevIndex + 1
+      prevIndex === productPic.length - 1
+        ? 0
+        : prevIndex < 4
+        ? prevIndex + 1
+        : 4
     );
   };
 
   const handlePrevImage = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? productPic.length - 1 : prevIndex - 1
+      prevIndex === 0
+        ? productPic.length > 4
+          ? 4
+          : productPic.length - 1
+        : prevIndex - 1
     );
   };
 

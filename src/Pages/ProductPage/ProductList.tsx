@@ -66,7 +66,7 @@ const ProductList: React.FC = () => {
         ? filterProducts(products, activeFilters)
         : [];
 
-      setFilteredProducts(filteredProductsActivated);
+        setFilteredProducts(filteredProductsActivated);
 
       return updatedCategories;
     });
