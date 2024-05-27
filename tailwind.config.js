@@ -13,8 +13,8 @@ export default {
     screens: {
       'tablet': {'max': '640px'},
       'laptop': {
-        'min': '641px',
-        'max': '1024px'
+        'min': '640px',
+        'max': '1536px'
       },
 
     }

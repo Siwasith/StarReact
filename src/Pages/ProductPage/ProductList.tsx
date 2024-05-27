@@ -128,6 +128,10 @@ const ProductList: React.FC = () => {
   const endIndex = Math.min(startIndex + itemsPerPage, filteredProducts.length);
   const displayedProducts = filteredProducts.slice(startIndex, endIndex);
 
+  const isFilterisCategoryVisible = isCategoryVisible;
+  const isFilterisRoastVisible = isRoastVisible;
+  const isFilterisCaffeineVisible = isCaffeineVisible;
+
   if (loading) {
     return <Loading />;
   }
@@ -135,12 +139,14 @@ const ProductList: React.FC = () => {
   return (
     <>
       <HeroSection />
-      <div className="mt-10 mx-48 w-80 h-[400px] tablet:mx-10 tablet:mt-4 laptop:mx-12 laptop:w-64 tablet:mx-12">
-        <div className="mt-4 inline-flex w-10 tablet:mt-6 tablet:px-0 ">
+      <div
+        className={`mt-10 mx-48 w-80 h-[400px] tablet:mt-4 laptop:mx-4 laptop:w-64 tablet:mx-12`}
+      >
+        <div className="mt-4 inline-flex w-10 tablet:mt-6 tablet:px-0">
           <h2 className="font-medium text-2xl text-center font-mulish">
             Filters
           </h2>
-          <div className="ml-36 mr-8 tablet:ml-2 tablet:mr-2 text-[#067655] laptop:ml-20 tablet:ml-36">
+          <div className="ml-36 mr-8 tablet:mr-2 text-[#067655] laptop:ml-20 tablet:ml-36">
             <button
               className="px-4 py-1 border rounded-3xl inline-flex border-[#067655] hover:bg-gray-100"
               onClick={handleClearFilters}
@@ -187,7 +193,15 @@ const ProductList: React.FC = () => {
           handleCategoryChange={handleCategoryChange}
         />
       </div>
-      <div className="w-[900px] h-auto ml-[550px] -mt-[400px] p-4 mb-4 laptop:ml-[350px] laptop:w-[600px] tablet:ml-[30px] tablet:w-[350px] tablet:-mt-[200px]">
+      <div
+        className={`w-[900px] h-auto ml-[550px] -mt-[400px] p-4 mb-4 laptop:ml-[300px] laptop:w-auto tablet:ml-[30px] tablet:w-[350px] ${
+          isFilterisCategoryVisible ||
+          isFilterisRoastVisible ||
+          isFilterisCaffeineVisible
+            ? "tablet:mt-[50px]"
+            : "tablet:-mt-[200px]"
+        }`}
+      >
         <div className="mb-4 relative">
           <input
             type="text"
@@ -222,18 +236,13 @@ const ProductList: React.FC = () => {
                   className="w-6 h-6 mx-3"
                 >
                   <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                  <g
-                    id="SVGRepo_tracerCarrier"
-                   
-                    stroke-linejoin="round"
-                  ></g>
+                  <g id="SVGRepo_tracerCarrier" stroke-linejoin="round"></g>
                   <g id="SVGRepo_iconCarrier">
                     {" "}
                     <path
                       d="M4 12.6111L8.92308 17.5L20 6.5"
                       stroke="#FFFFF"
                       stroke-width="2"
-           
                       stroke-linejoin="round"
                     ></path>{" "}
                   </g>
@@ -248,7 +257,7 @@ const ProductList: React.FC = () => {
                     className="block"
                   >
                     <div className="bg-white drop-shadow flex flex-col h-[500px] hover:drop-shadow-xl ease-in-out duration-100">
-                      <p className="absolute text-gray-800 font-bold ml-4 mt-[465px] font-light">
+                      <p className="absolute text-gray-800  ml-4 mt-[465px] font-light">
                         Price : ${product.price}
                       </p>
                       <img
@@ -288,8 +297,8 @@ const ProductList: React.FC = () => {
                     key={product.id}
                     className="block"
                   >
-                    <div className="bg-white drop-shadow flex flex-col h-[500px] hover:drop-shadow-md ease-in-out duration-100">
-                      <p className="absolute text-gray-800 font-bold ml-4 mt-[465px] font-light">
+                    <div className="bg-white drop-shadow flex flex-col h-[450px] hover:drop-shadow-md ease-in-out duration-100">
+                      <p className="absolute text-gray-800 ml-4 mt-[415px] font-light">
                         Price : ${product.price}
                       </p>
                       <img
